@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../common/BaseLayout.astro";
+const {id} = Astro.params;
+import {villas} from "../../model/Villas";
+import Header from "../../common/Header.astro";
+export function getStaticPaths() {
+    return villas.map(v => ({params:{id:v.id}}));
+}
+const villa = villas.find(v => v.id === id)!;
+---
+<BaseLayout>
+    <Header/>
+    <video
+            src=`/assets/${villa.id}/video.mp4`
+            autoplay
+            loop
+            playsinline
+            height="100vh"
+            style=`height:100%;view-transition-name: ${villa.id}`
+    >
+        Your browser does not support the video tag.
+    </video>
+</BaseLayout>
+<style>
+
+</style>

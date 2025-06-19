@@ -1,6 +1,24 @@
 ---
 import BaseLayout from "../common/BaseLayout.astro";
+import {villas} from "../model/Villas";
+import Header from "../common/Header.astro";
+import VillaList from "../common/VillaList";
 ---
 <BaseLayout>
-    <h1>Hello world</h1>
+    <Header/>
+    <VillaList villas={villas} client:load/>
 </BaseLayout>
+<script >
+
+    const SCROLL_POSITION = 'scroll-position';
+    const ELEMENT_ID = 'container'
+
+    document.addEventListener("astro:after-swap", () => {
+        const scrollTop = localStorage.getItem(SCROLL_POSITION);
+        if(scrollTop){
+            const element = document.getElementById(ELEMENT_ID)!;
+            element.scrollTop = parseInt(scrollTop,10);
+        }
+    });
+</script>
+
